@@ -1,7 +1,7 @@
 ﻿using ContactApp.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ContactApp.Enums;
+
 
 
 namespace ContactApp.Models
