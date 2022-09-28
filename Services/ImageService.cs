@@ -1,13 +1,15 @@
 ﻿using ContactApp.Services.Interfaces;
+using ContactApp.Services;
 using System.Buffers.Text;
+
 
 namespace ContactApp.Services
 {
     public class ImageService : IImageService
     {
        private readonly string[] suffixes = { "Bytes", "KB", "GB", "TB", "PB" };
-        private readonly string defaultImage = "img/DefaultContactImage.png";
-
+       private readonly string defaultImage = "/img/DefaultContactImage.png";
+       
 
         public string ConvertByteArrayToFile(byte[] fileData, string extension)
         {
@@ -15,7 +17,7 @@ namespace ContactApp.Services
             try
             {
                 string imageBase64Data = Convert.ToBase64String(fileData);
-                return string.Format($"data:{extension}, Base64,{imageBase64Data}");
+                return string.Format($"data:{extension}; base64,{imageBase64Data}");
             }
             catch(Exception)
             {

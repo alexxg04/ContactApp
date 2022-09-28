@@ -5,6 +5,6 @@ namespace ContactApp.Services.Interfaces
     
     {
         public Task<byte[]> ConvertFileToByteArrayAsync(IFormFile file);
-        public string ConvertByteArrayToFile(byte[] fileDate, string extension);
+        public string ConvertByteArrayToFile(byte[] fileData, string extension);
     }
 }
