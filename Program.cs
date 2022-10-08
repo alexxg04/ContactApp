@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ContactApp.Services;
 using ContactApp.Services.Interfaces;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 internal class Program
 {
@@ -23,7 +24,9 @@ internal class Program
         //custom services
         builder.Services.AddScoped<IImageService, ImageService>();
         builder.Services.AddScoped<IAddressBookService, AddressBookService>();
+        builder.Services.AddScoped<IEmailSender, EmailService>();
 
+        builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
         var app = builder.Build();
 

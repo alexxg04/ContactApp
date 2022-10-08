@@ -14,6 +14,7 @@ using ContactApp.Enums;
 using ContactApp.Services.Interfaces;
 using ContactApp.Services;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace ContactApp.Controllers
 {
@@ -23,13 +24,15 @@ namespace ContactApp.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IImageService _imageService;
         private readonly IAddressBookService _addressBookService;
+        private readonly IEmailSender _emailService;
         public ContactsController(ApplicationDbContext context, UserManager<AppUser>
-            userManager, IImageService imageService, IAddressBookService addressBookService)
+            userManager, IImageService imageService, IAddressBookService addressBookService, IEmailSender emailSender)
         {
             _context = context;
             _userManager = userManager;
             _imageService = imageService;
             _addressBookService = addressBookService;
+            _emailService = emailSender;
         }
 
         // GET: Contacts
@@ -121,7 +124,26 @@ namespace ContactApp.Controllers
                 EmailData = emailData
             };
 
-            return View();
+            return View(model);
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> EmailContact(EmailContactViewModel ecvm)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    await _emailService.SendEmailAsync(ecvm.EmailData.EmailAddress, ecvm.EmailData.Subject, ecvm.EmailData.Body);
+                    return RedirectToAction("Index", "Contacts");
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+            return View(ecvm);   
+
         }
 
 
