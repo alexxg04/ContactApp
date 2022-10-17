@@ -7,10 +7,8 @@ using ContactApp.Services.Interfaces;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using ContactApp.Helpers;
 
-internal class Program
-{
-    private static async void Main(string[] args)
-    {
+
+
         var builder = WebApplication.CreateBuilder(args);
 
         //var connectionString = builder.Configuration.GetSection("pgSettings")["pgConnection"];
@@ -61,5 +59,3 @@ internal class Program
         app.MapRazorPages();
 
         app.Run();
-    }
-}
