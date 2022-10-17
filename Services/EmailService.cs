@@ -18,7 +18,7 @@ namespace ContactApp.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var emailSender = _mailSettings.Email;
+            var emailSender = _mailSettings.Email ?? Environment.GetEnvironmentVariable("Email");
 
             MimeMessage newEmail = new();
             newEmail.Sender = MailboxAddress.Parse(emailSender); ;
@@ -36,9 +36,9 @@ namespace ContactApp.Services
             using SmtpClient smtpClient = new();
             try
             {
-                var host = _mailSettings.Host;
-                var port = _mailSettings.Port;
-                var password = _mailSettings.Password;
+                var host = _mailSettings.MailHost ?? Environment.GetEnvironmentVariable("MailHost");
+                var port = _mailSettings.MailPort !=0 ? _mailSettings.MailPort : int.Parse(Environment.GetEnvironmentVariable("Port"));
+                var password = _mailSettings.MailPassword ?? Environment.GetEnvironmentVariable("MailPassword");
 
                 await smtpClient.ConnectAsync(host, port,SecureSocketOptions.StartTls);
                 await smtpClient.AuthenticateAsync(emailSender, password);

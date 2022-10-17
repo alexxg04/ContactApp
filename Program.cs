@@ -5,14 +5,17 @@ using Microsoft.EntityFrameworkCore;
 using ContactApp.Services;
 using ContactApp.Services.Interfaces;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using ContactApp.Helpers;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static async void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        var connectionString = builder.Configuration.GetSection("pgSettings")["pgConnection"];
+        //var connectionString = builder.Configuration.GetSection("pgSettings")["pgConnection"];
+        var connectionString = ConnectionHelper.GetConnectionString(builder.Configuration);
+        
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(connectionString));
@@ -29,6 +32,8 @@ internal class Program
         builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
         var app = builder.Build();
+        var scope = app.Services.CreateScope();
+        await DataHelper.ManageDataAsync(scope.ServiceProvider);
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
