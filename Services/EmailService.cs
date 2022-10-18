@@ -37,7 +37,7 @@ namespace ContactApp.Services
             try
             {
                 var host = _mailSettings.MailHost ?? Environment.GetEnvironmentVariable("MailHost");
-                var port = _mailSettings.MailPort !=0 ? _mailSettings.MailPort : int.Parse(Environment.GetEnvironmentVariable("Port"));
+                var port = _mailSettings.MailPort !=0 ? _mailSettings.MailPort : int.Parse(Environment.GetEnvironmentVariable("MailPort"));
                 var password = _mailSettings.MailPassword ?? Environment.GetEnvironmentVariable("MailPassword");
 
                 await smtpClient.ConnectAsync(host, port,SecureSocketOptions.StartTls);
