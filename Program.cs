@@ -22,6 +22,7 @@ using ContactApp.Helpers;
         builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddControllersWithViews();
+
         //custom services
         builder.Services.AddScoped<IImageService, ImageService>();
         builder.Services.AddScoped<IAddressBookService, AddressBookService>();
@@ -30,6 +31,7 @@ using ContactApp.Helpers;
         builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
         var app = builder.Build();
+
         var scope = app.Services.CreateScope();
         await DataHelper.ManageDataAsync(scope.ServiceProvider);
 
