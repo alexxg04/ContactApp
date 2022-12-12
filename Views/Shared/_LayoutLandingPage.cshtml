@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 <head>
-    <title>@ViewData["Title"] - ContactApp</title>
+    <title>@ViewData["Title"] - BlackBook</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,6 +30,7 @@
 </head>
 <body>
     <header>
+    
 
         <!--New Nav bar-->
         <nav class="navbar navbar-expand-md navbar-light fixed-top border-bottom border-light navShadow">
@@ -40,14 +41,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link active" aria-current="page" asp-area=""  asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                      
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
+                                <a class="nav-link" asp-area="" asp-area="Identity" asp-controller="Contacts" asp-action="Index">Contacts</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>

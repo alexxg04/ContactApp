@@ -17,6 +17,7 @@ using ContactApp.Helpers;
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(connectionString));
+
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -61,3 +62,4 @@ using ContactApp.Helpers;
         app.MapRazorPages();
 
         app.Run();
+//Updated
